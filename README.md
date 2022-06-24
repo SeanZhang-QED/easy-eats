@@ -7,4 +7,5 @@
 ![API](https://user-images.githubusercontent.com/66594541/175469338-f073013b-9994-4922-b535-9746ace235e3.png)
 
 # ERD for database
-![ERD](https://user-images.githubusercontent.com/66594541/175242307-18f22361-157e-4650-a324-66a0d77de347.png)
+![ERD](https://user-images.githubusercontent.com/66594541/175477034-2b112524-193e-4227-afde-f58cc228423e.png)
+
