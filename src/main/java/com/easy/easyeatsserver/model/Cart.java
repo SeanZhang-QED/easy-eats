@@ -13,8 +13,7 @@ public class Cart implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private String id;
 
     private double totalPrice;
 
@@ -25,17 +24,16 @@ public class Cart implements Serializable {
     public Cart() {
     }
 
-    public Cart(int id, double totalPrice, List<OrderedItem> orderedItemList) {
+    public Cart(String id, double totalPrice) {
         this.id = id;
         this.totalPrice = totalPrice;
-        this.orderedItemList = orderedItemList;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

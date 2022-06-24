@@ -1,6 +1,7 @@
 package com.easy.easyeatsserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -27,7 +28,7 @@ public class User implements Serializable {
     private Cart cart;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",  cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Post> postList;
 
@@ -90,11 +91,15 @@ public class User implements Serializable {
     }
 
     public static class Builder {
+        @JsonProperty("email")
         private String email;
 
-        @JsonIgnore
+        @JsonProperty("password")
         private String password;
+
+        @JsonProperty("username")
         private String username;
+
         @JsonIgnore
         private boolean enabled;
 

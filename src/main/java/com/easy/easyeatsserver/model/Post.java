@@ -14,7 +14,6 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @JsonIgnore
     @ManyToOne
     private User user;
 
