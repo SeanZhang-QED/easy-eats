@@ -4,6 +4,7 @@ import com.easy.easyeatsserver.exception.UserAlreadyExistException;
 import com.easy.easyeatsserver.model.Authority;
 import com.easy.easyeatsserver.model.Cart;
 import com.easy.easyeatsserver.model.User;
+import com.easy.easyeatsserver.model.UserRole;
 import com.easy.easyeatsserver.repository.AuthorityRepository;
 import com.easy.easyeatsserver.repository.CartRepository;
 import com.easy.easyeatsserver.repository.UserRepository;
@@ -42,6 +43,6 @@ public class SignupService {
         cartRepository.save(new Cart(user.getEmail(), 0));
         user.setCart(cartRepository.getReferenceById(user.getEmail()));
         userRepository.save(user);
-        authorityRepository.save(new Authority(user.getEmail(), "Customer"));
+        authorityRepository.save(new Authority(user.getEmail(), UserRole.CUSTOMER.name()));
     }
 }
