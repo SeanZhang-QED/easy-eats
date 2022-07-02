@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/signup").permitAll() // signing up is allowed without authentication
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers("/posts").permitAll()
+                .antMatchers("/posts/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf()

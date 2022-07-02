@@ -1,6 +1,7 @@
 package com.easy.easyeatsserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,14 +10,22 @@ import java.io.Serializable;
 @Table(name = "menu_item")
 public class MenuItem implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private String name;
+
+    @JsonProperty("pre_price")
+    @Column(name = "pre_price")
     private double prePrice;
+
     private String description;
 
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     public MenuItem() {

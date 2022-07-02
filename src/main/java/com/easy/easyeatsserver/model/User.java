@@ -23,14 +23,10 @@ public class User implements Serializable {
     @JsonIgnore
     private boolean enabled;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private Cart cart;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Post> postList;
 
     public User() {
     }
@@ -80,14 +76,6 @@ public class User implements Serializable {
 
     public void setCart(Cart cart) {
         this.cart = cart;
-    }
-
-    public List<Post> getPostList() {
-        return postList;
-    }
-
-    public void setPostList(List<Post> postList) {
-        this.postList = postList;
     }
 
     public static class Builder {

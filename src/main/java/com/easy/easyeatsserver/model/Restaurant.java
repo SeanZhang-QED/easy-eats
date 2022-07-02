@@ -1,6 +1,7 @@
 package com.easy.easyeatsserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,12 +11,17 @@ import java.util.List;
 @Table(name = "restaurant")
 public class Restaurant implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String address;
     private String phone;
-    private String image_url;
+
+    @JsonProperty("image_url")
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -29,7 +35,7 @@ public class Restaurant implements Serializable {
         this.name = name;
         this.address = address;
         this.phone = phone;
-        this.image_url = image_url;
+        this.imageUrl = image_url;
         this.menuItemList = menuItemList;
     }
 
@@ -66,11 +72,11 @@ public class Restaurant implements Serializable {
     }
 
     public String getImage_url() {
-        return image_url;
+        return imageUrl;
     }
 
     public void setImage_url(String image_url) {
-        this.image_url = image_url;
+        this.imageUrl = image_url;
     }
 
     public List<MenuItem> getMenuItemList() {

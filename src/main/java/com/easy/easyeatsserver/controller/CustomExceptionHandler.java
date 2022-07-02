@@ -1,8 +1,6 @@
 package com.easy.easyeatsserver.controller;
 
-import com.easy.easyeatsserver.exception.UserAlreadyExistException;
-import com.easy.easyeatsserver.exception.UserHasNoAuthorityException;
-import com.easy.easyeatsserver.exception.UserNotExistException;
+import com.easy.easyeatsserver.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,5 +23,15 @@ public class CustomExceptionHandler {
     @ExceptionHandler(UserHasNoAuthorityException.class)
     public final ResponseEntity<String> handleUserHasNoAuthorityExceptions(Exception ex, WebRequest request) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(PostNotExistException.class)
+    public final ResponseEntity<String> handlePostNotExistException(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(GCSUploadException.class)
+    public final ResponseEntity<String> handleGCSUploadException(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

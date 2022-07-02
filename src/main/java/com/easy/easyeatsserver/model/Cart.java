@@ -1,5 +1,6 @@
 package com.easy.easyeatsserver.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -15,6 +16,8 @@ public class Cart implements Serializable {
     @Id
     private String id;
 
+    @JsonProperty("total_price")
+    @Column(name = "total_price")
     private double totalPrice;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)

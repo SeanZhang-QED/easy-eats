@@ -19,6 +19,7 @@ public class OrderedItem implements Serializable {
 
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @JsonIgnore
