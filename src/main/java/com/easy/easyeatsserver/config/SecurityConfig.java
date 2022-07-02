@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Autowired
     private DataSource dataSource;
 
@@ -26,8 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override // Authorization config
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/signup").permitAll() // signing up is allowed without authentication
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers("/posts").permitAll()
@@ -38,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable();
     }
 
-    @Override // Authentication Http Request Config
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.
                 jdbcAuthentication()

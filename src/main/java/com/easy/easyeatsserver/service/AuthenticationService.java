@@ -25,24 +25,18 @@ public class AuthenticationService {
         this.jwtUtil = jwtUtil;
     }
 
-    public Token authenticate(User user, UserRole userRole) throws UserNotExistException, UserHasNoAuthorityException {
+    public Token authenticate(User user, UserRole role) throws UserNotExistException {
         Authentication auth = null;
         try {
-            auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-        } catch (AuthenticationException ex) {
-            throw new UserNotExistException("User not exist or entering wrong password");
+            auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+        } catch (AuthenticationException exception) {
+            throw new UserNotExistException("User Doesn't Exist");
         }
 
-        if (auth == null || !auth.isAuthenticated()) {
-            // fail to authenticate
-            throw new UserNotExistException("User not exist or entering wrong password");
+        if( !auth.getAuthorities().contains(new SimpleGrantedAuthority(role.name()))) {
+            throw new UserHasNoAuthorityException("User has no authority to access");
         }
-
-        if(!auth.getAuthorities().contains(new SimpleGrantedAuthority(userRole.name()))) {
-            // current user does not permit to access this endpoint
-            throw new UserHasNoAuthorityException("User does not have the authority to access.");
-        }
-
         return new Token(jwtUtil.generateToken(user.getEmail()));
     }
 

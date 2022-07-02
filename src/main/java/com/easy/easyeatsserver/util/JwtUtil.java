@@ -12,21 +12,20 @@ import java.util.HashMap;
 @Component
 public class JwtUtil {
     @Value("${jwt.privateKey}")
-    private String privateKey;
+    private String secret;
 
-    // subject == username/email (as we need to subtract username from jwt)
     public String generateToken(String subject) {
         return Jwts.builder()
-                .setClaims(new HashMap<>()) // stores optional info in a map
+                .setClaims(new HashMap<>())
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
-                .signWith(SignatureAlgorithm.HS256, privateKey)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
     private Claims extractClaims(String token) {
-        return Jwts.parser().setSigningKey(privateKey).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
     public String extractUsername(String token) {
@@ -40,4 +39,6 @@ public class JwtUtil {
     public Boolean validateToken(String token) {
         return extractExpiration(token).after(new Date());
     }
+
+
 }
