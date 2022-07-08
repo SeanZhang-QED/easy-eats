@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -19,13 +20,18 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping(value = "/posts/upload")
-    public void addImagePost(@RequestParam("user") String userEmail,
-                             @RequestParam("message") String message,
+    @GetMapping(value = "/posts")
+    public List<Post> listAllPosts(Principal principal) {
+        return this.postService.listByUser(principal.getName());
+    }
+
+    @PostMapping(value = "/posts")
+    public void addImagePost(@RequestParam("message") String message,
                              @RequestParam("type") String type,
-                             @RequestParam("media_file") MultipartFile file) {
+                             @RequestParam("media_file") MultipartFile file,
+                             Principal principal) {
         Post post = new Post();
-        post.setUser(new User.Builder().setEmail(userEmail).build());
+        post.setUser(new User.Builder().setEmail(principal.getName()).build());
         post.setMessage(message);
         if (type.equals("image")) {
             post.setType(PostType.IMAGE);
@@ -35,14 +41,11 @@ public class PostController {
         this.postService.add(post, file);
     }
 
-    @DeleteMapping(value = "/posts")
-    public void deletePost(@RequestParam(name = "post_id") int postId,
-                           @RequestParam(name = "user_email") String userEmail) {
-        this.postService.delete(postId, userEmail);
+    @DeleteMapping(value = "/posts/{postId}")
+    public void deletePost(@PathVariable int postId,
+                           Principal principal) {
+        this.postService.delete(postId, principal.getName());
     }
 
-    @GetMapping(value = "/posts")
-    public List<Post> listAllPosts(@RequestParam(name = "user_email") String userEmail) {
-        return this.postService.listByUser(userEmail);
-    }
+
 }

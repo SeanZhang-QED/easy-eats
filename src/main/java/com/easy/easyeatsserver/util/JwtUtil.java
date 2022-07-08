@@ -14,6 +14,7 @@ public class JwtUtil {
     @Value("${jwt.privateKey}")
     private String secret;
 
+    // note: here, subject is email not username
     public String generateToken(String subject) {
         return Jwts.builder()
                 .setClaims(new HashMap<>())
@@ -28,7 +29,7 @@ public class JwtUtil {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
-    public String extractUsername(String token) {
+    public String extractEmail(String token) {
         return extractClaims(token).getSubject();
     }
 
