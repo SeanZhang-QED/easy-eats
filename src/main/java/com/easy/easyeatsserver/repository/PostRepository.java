@@ -12,4 +12,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     List<Post> findByUser(User user); // select * where post.user = user
 
     Post findByIdAndUser(int id, User user); // select * where post.id = id and stay.user = user
+
+    List<Post> findByIdIn(List<Integer> ids);
 }
