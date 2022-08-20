@@ -27,12 +27,14 @@ public class PostController {
 
     @PostMapping(value = "/posts")
     public void addImagePost(@RequestParam("message") String message,
+                             @RequestParam("restaurant") String restaurant,
                              @RequestParam("type") String type,
                              @RequestParam("media_file") MultipartFile file,
                              Principal principal) {
         Post post = new Post();
         post.setUser(new User.Builder().setEmail(principal.getName()).build());
         post.setMessage(message);
+        post.setRestaurant(restaurant);
         if (type.equals("image")) {
             post.setType(PostType.IMAGE);
         } else {

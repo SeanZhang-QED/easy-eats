@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CustomEvaluationRepository {
     List<Integer> matchByKeyword(String keyword);
+    List<Integer> matchByRestaurant(String restaurant);
 }

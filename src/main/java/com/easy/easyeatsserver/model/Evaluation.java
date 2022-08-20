@@ -16,10 +16,12 @@ public class Evaluation implements Serializable {
     private Integer id;
 
     private String message;
+    private String restaurant;
 
-    public Evaluation(Integer id, String message) {
+    public Evaluation(Integer id, String message, String restaurant) {
         this.id = id;
         this.message = message;
+        this.restaurant = restaurant;
     }
 
     public Integer getId() {
@@ -28,5 +30,9 @@ public class Evaluation implements Serializable {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getRestaurant() {
+        return restaurant;
     }
 }

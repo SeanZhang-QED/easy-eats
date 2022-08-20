@@ -1,11 +1,9 @@
 package com.easy.easyeatsserver.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
 
 @Entity
 @Table(name = "post")
@@ -19,8 +17,8 @@ public class Post implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_email")
     private User user;
-
     private String message;
+    private String restaurant;
     private String url;
 
     @Enumerated(value = EnumType.STRING)
@@ -29,11 +27,12 @@ public class Post implements Serializable {
     public Post() {
     }
 
-    public Post( String message, String url, PostType type, User user) {
+    public Post( String message, String url, PostType type, User user, String restaurant) {
         this.message = message;
         this.url = url;
         this.type = type;
         this.user = user;
+        this.restaurant = restaurant;
     }
 
     public int getId() {
@@ -74,5 +73,13 @@ public class Post implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(String restaurant) {
+        this.restaurant = restaurant;
     }
 }

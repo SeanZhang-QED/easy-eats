@@ -28,7 +28,15 @@ public class SearchService {
         if (keywords == null) {
             return this.postRepository.findAll();
         }
-        evaluationRepository.matchByKeyword(keywords);
+//        evaluationRepository.matchByKeyword(keywords);
         return this.postRepository.findByIdIn(evaluationRepository.matchByKeyword(keywords));
+    }
+
+    public List<Post> searchPostByRestaurant(String restaurant) {
+        if (restaurant == null) {
+            return this.postRepository.findAll();
+        }
+//        evaluationRepository.matchByRestaurant(restaurant);
+        return this.postRepository.findByIdIn(evaluationRepository.matchByRestaurant(restaurant));
     }
 }

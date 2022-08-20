@@ -20,9 +20,13 @@ public class SearchController {
 
     @GetMapping(value = "/search")
     public List<Post> searchPosts(@RequestParam(value = "user", required = false) String email,
+                                  @RequestParam(value = "restaurant", required = false) String restaurant,
                                   @RequestParam(value = "keywords", required = false) String keywords ) {
         if (email != null) {
             return this.searchService.searchPostByEmail(email);
+        }
+        if(restaurant != null) {
+            return this.searchService.searchPostByRestaurant(restaurant);
         }
         return this.searchService.searchPostByKeyword(keywords);
     }

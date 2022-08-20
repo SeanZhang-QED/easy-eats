@@ -36,4 +36,20 @@ public class CustomEvaluationRepositoryImpl implements CustomEvaluationRepositor
         }
         return results;
     }
+
+    @Override
+    public List<Integer> matchByRestaurant(String restaurant) {
+        // step 1: build the query
+        Query query = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders.matchQuery("restaurant", restaurant).operator(Operator.AND))
+                .build();
+
+        // Step 2: do the search
+        SearchHits<Evaluation> searchResult = elasticsearchOperations.search(query, Evaluation.class);
+        List<Integer> results = new ArrayList<>();
+        for (SearchHit<Evaluation> hit : searchResult.getSearchHits()) {
+            results.add(hit.getContent().getId());
+        }
+        return results;
+    }
 }

@@ -36,7 +36,7 @@ public class PostService {
         post.setUrl(mediaLinks);
         this.postRepository.save(post);
         // Step 3: save the post to ES
-        this.evaluationRepository.save(new Evaluation(post.getId(), post.getMessage()));
+        this.evaluationRepository.save(new Evaluation(post.getId(), post.getMessage(), post.getRestaurant()));
     }
 
     // delete
